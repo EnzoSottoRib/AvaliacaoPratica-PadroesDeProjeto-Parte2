@@ -1,21 +1,21 @@
 package Questao04;
 
-public class validadorXSD extends absHandler{
+public class validadorCertificadoDigital extends absHandler{
     
     @Override
     public void handleRequest(String tipo, int certificado, String regra, int id, String sefaz) {
-        if(this.canHandle(tipo)){
-            System.out.println("Arquivo validado XSD!");
+        if(this.canHandle(certificado)){
+            System.out.println("Certificado validado!");
             nextHandler.handleRequest(tipo, certificado, regra, id, sefaz);
         }
         else{
-            System.out.println("Arquivo não validado XSD!");
+            System.out.println("Certificado não validado!");
             nextHandler.handleRequest(tipo, certificado, regra, id, sefaz);
         }
     }
 
-    private boolean canHandle(String tipo){
-        return (tipo == "XSD");
+    private boolean canHandle(int certificado){
+        return (certificado == 1234);
     }
 
 }

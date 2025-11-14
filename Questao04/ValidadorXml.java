@@ -1,24 +1,21 @@
 package Questao04;
 
-public class ValidadorXml extends AbsValidador{
-
-    public void handleRequest(NotaFiscal notaFiscal){
-        if(canHandle(notaFiscal)){
-            System.out.println("Sucesso, passando para próximo validador");
-            setNextHandler(new ValidadorCertificado());
-        } else{
-            System.out.println("Erro, validando XSD");
-            setNextHandler(new ValidadorXml());
+public class validadorXML extends absHandler{
+    
+    @Override
+    public void handleRequest(String tipo, int certificado, String regra, int id, String sefaz) {
+        if(this.canHandle(tipo)){
+            System.out.println("Arquivo validado XML!");
+            nextHandler.handleRequest(tipo, certificado, regra, id, sefaz);
+        }
+        else{
+            System.out.println("Arquivo não validado XML!");
+            nextHandler.handleRequest(tipo, certificado, regra, id, sefaz);
         }
     }
 
-    public boolean canHandle(NotaFiscal notaFiscal){
-        if(notaFiscal.data.containsKey("Schema")){
-            Object tipoNota = notaFiscal.data.get("Schema");
-            return tipoNota != null && tipoNota.toString().equals("XML");
-        }
-
-        return false;
+    private boolean canHandle(String tipo){
+        return (tipo == "XML");
     }
 
 }
